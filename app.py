@@ -119,9 +119,7 @@ if uploaded_file is not None:
         
         # Columns to exclude from input
         excluded_columns = [
-            "Student_ID", "Academic_Level", "Mental_Health_Score", 
-            "Relationship_Status", "Conflicts_Over_Social_Media", 
-            "Affects_Academic_Performance"
+            "Student_ID",
         ]
         
         # Filter feature names
