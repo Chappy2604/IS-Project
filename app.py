@@ -35,10 +35,10 @@ features = data["feature_names"]
 st.title("📱 Social Media Addiction Predictor")
 st.info("Model loaded successfully from local storage.")
 
-    # =========================
-    # PREDICTION SECTION
-    # =========================
-    if 'model' in st.session_state:
+# =========================
+# PREDICTION SECTION
+# =========================
+if 'model' in st.session_state:
         st.markdown("---")
         st.header("🔮 Try It Out - Predict a New Student")
         
