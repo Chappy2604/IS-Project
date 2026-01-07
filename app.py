@@ -1,12 +1,7 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
-
-from sklearn.preprocessing import LabelEncoder
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import pickle
 
 st.set_page_config(page_title="Social Media Addiction Checker", layout="wide")
 
@@ -17,111 +12,28 @@ st.title("📱 Are You Addicted to Social Media?")
 st.write("Let's find out using a Decision Tree! 🌳")
 
 # =========================
-# FILE UPLOAD
+# LOAD THE PRE-TRAINED MODEL
 # =========================
-uploaded_file = st.file_uploader("Upload your dataset (CSV) or a saved model (PKL)", type=["csv", "pkl"])
+@st.cache_resource
+def load_model():
+    try:
+        with open("addiction_model.pkl", "rb") as f:
+            return pickle.load(f)
+    except FileNotFoundError:
+        return None
 
-if uploaded_file is not None:
-    if uploaded_file.name.endswith('.csv'):
-        # --- CSV TRAINING PATH ---
-        df = pd.read_csv(uploaded_file)
-        st.subheader("Training Data Preview:")
-        st.dataframe(df.head())
-        
-        # (The rest of your existing training code goes here...)
+data = load_model()
 
-    elif uploaded_file.name.endswith('.pkl'):
-        # --- PKL INFERENCE PATH ---
-        try:
-            model_data = pickle.load(uploaded_file)
-            
-            # Load the components back into session state
-            st.session_state.model = model_data["model"]
-            st.session_state.label_encoders = model_data["label_encoders"]
-            st.session_state.feature_names = model_data["feature_names"]
-            st.session_state.original_df = model_data["original_df"]
-            
-            st.success("✅ Pre-trained model loaded successfully! Scroll down to 'Try It Out'.")
-        except Exception as e:
-            st.error(f"Error loading model: {e}")
-    # =========================
-    # USER CONTROLS
-    # =========================
-    st.sidebar.header("⚙️ Settings")
+if data is None:
+    st.error("⚠️ 'addiction_model.pkl' not found. Please upload it to the Colab folder.")
+    st.stop()
 
-    test_size = st.sidebar.selectbox(
-        "Train-Test Split",
-        [0.3, 0.25, 0.2],
-        format_func=lambda x: f"{int((1-x)*100)}/{int(x*100)}"
-    )
+model = data["model"]
+encoders = data["label_encoders"]
+features = data["feature_names"]
 
-    criterion = st.sidebar.radio("Split Method", ["gini", "entropy"])
-    max_depth = st.sidebar.selectbox("Tree Depth", [3, 5, 7, None])
-
-    # =========================
-    # TRAIN BUTTON
-    # =========================
-    if st.button("🚀 Train the Model"):
-
-        # Store original columns before encoding
-        original_df = df.copy()
-        
-        # Encode categorical columns
-        label_encoders = {}
-        for col in df.select_dtypes(include="object"):
-            label_encoders[col] = LabelEncoder()
-            df[col] = label_encoders[col].fit_transform(df[col])
-
-        X = df.drop("Addicted_Score", axis=1)
-        y = df["Addicted_Score"]
-
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=test_size, random_state=42
-        )
-
-        model = DecisionTreeClassifier(
-            criterion=criterion,
-            max_depth=max_depth,
-            random_state=42
-        )
-
-        model.fit(X_train, y_train)
-        y_pred = model.predict(X_test)
-
-        # Store in session state
-        st.session_state.model = model
-        st.session_state.label_encoders = label_encoders
-        st.session_state.feature_names = X.columns.tolist()
-        st.session_state.original_df = original_df
-
-        # =========================
-        # RESULTS
-        # =========================
-        st.success(f"✅ Model Accuracy: {accuracy_score(y_test, y_pred):.2%}")
-
-        st.subheader("📊 Detailed Results")
-        st.text(classification_report(y_test, y_pred))
-
-        st.subheader("🔢 Confusion Matrix")
-        cm = confusion_matrix(y_test, y_pred)
-
-        fig, ax = plt.subplots(figsize=(8,6))
-        ax.imshow(cm, cmap='Blues')
-        ax.set_xlabel("Predicted")
-        ax.set_ylabel("Actual")
-        ax.set_title("Confusion Matrix")
-        st.pyplot(fig)
-
-        # =========================
-        # FEATURE IMPORTANCE
-        # =========================
-        st.subheader("📈 What Matters Most?")
-        importance_df = pd.DataFrame({
-            "Feature": X.columns,
-            "Importance": model.feature_importances_
-        }).sort_values(by="Importance", ascending=False)
-
-        st.bar_chart(importance_df.set_index("Feature"))
+st.title("📱 Social Media Addiction Predictor")
+st.info("Model loaded successfully from local storage.")
 
     # =========================
     # PREDICTION SECTION
