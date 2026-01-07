@@ -19,14 +19,31 @@ st.write("Let's find out using a Decision Tree! 🌳")
 # =========================
 # FILE UPLOAD
 # =========================
-uploaded_file = st.file_uploader("Upload your dataset (CSV file)", type=["csv"])
+uploaded_file = st.file_uploader("Upload your dataset (CSV) or a saved model (PKL)", type=["csv", "pkl"])
 
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    if uploaded_file.name.endswith('.csv'):
+        # --- CSV TRAINING PATH ---
+        df = pd.read_csv(uploaded_file)
+        st.subheader("Training Data Preview:")
+        st.dataframe(df.head())
+        
+        # (The rest of your existing training code goes here...)
 
-    st.subheader("Here's what your data looks like:")
-    st.dataframe(df.head())
-
+    elif uploaded_file.name.endswith('.pkl'):
+        # --- PKL INFERENCE PATH ---
+        try:
+            model_data = pickle.load(uploaded_file)
+            
+            # Load the components back into session state
+            st.session_state.model = model_data["model"]
+            st.session_state.label_encoders = model_data["label_encoders"]
+            st.session_state.feature_names = model_data["feature_names"]
+            st.session_state.original_df = model_data["original_df"]
+            
+            st.success("✅ Pre-trained model loaded successfully! Scroll down to 'Try It Out'.")
+        except Exception as e:
+            st.error(f"Error loading model: {e}")
     # =========================
     # USER CONTROLS
     # =========================
