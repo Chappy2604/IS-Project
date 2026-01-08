@@ -2,7 +2,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from google.colab import files
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -12,7 +11,6 @@ from sklearn import svm
 
 
 #2. Load the dataset
-uploaded = files.upload()
 df = pd.read_csv("Students Social Media Addiction.csv")
 student = pd.read_csv("Students Social Media Addiction.csv")
 
