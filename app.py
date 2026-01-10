@@ -8,7 +8,7 @@ import numpy as np
 # ------------------------------
 @st.cache_resource
 def load_model():
-    with open("addiction_model (2).pkl", "rb") as file:
+    with open("addiction_model.pkl", "rb") as file:
         return pickle.load(file)
 
 model = load_model()
