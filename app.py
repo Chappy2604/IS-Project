@@ -30,13 +30,24 @@ st.divider()
 # ------------------------------
 # Input Fields (MATCH TRAINING COLUMNS)
 # ------------------------------
-Gender = st.selectbox("Gender", ["Male", "Female"])
 Age = st.number_input("Age", min_value=10, max_value=100, value=21)
-Sleep_Hours = st.slider("Sleep Hours per Day", 0, 12, 6)
-Study_Hours = st.slider("Study Hours per Day", 0, 12, 3)
-Social_Media_Usage = st.selectbox(
-    "Social Media Usage",
-    ["Low", "Medium", "High"]
+Gender = st.selectbox("Gender", ["Male", "Female"])
+Academic_Level = st.selectbox(
+    "Academic Level", ["Diploma", "Degree", "Master", "PhD"]
+)
+Country = st.selectbox("Country", ["Malaysia", "Other"])
+Avg_Daily_Usage_Hours = st.slider("Average Daily Usage Hours", 0, 24, 5)
+Most_Used_Platform = st.selectbox(
+    "Most Used Platform", ["Instagram", "TikTok", "Facebook", "Twitter"]
+)
+Affects_Academic_Performance = st.selectbox(
+    "Affects Academic Performance", ["Yes", "No"]
+)
+Sleep_Hours_Per_Night = st.slider("Sleep Hours Per Night", 0, 12, 6)
+Mental_Health_Score = st.slider("Mental Health Score", 0, 10, 5)
+Relationship_Status = st.selectbox("Relationship Status", ["Single", "In a Relationship"])
+Conflicts_Over_Social_Media = st.selectbox(
+    "Conflicts Over Social Media", ["Yes", "No"]
 )
 
 # ------------------------------
@@ -45,14 +56,21 @@ Social_Media_Usage = st.selectbox(
 if st.button("🔍 Predict Addiction Score"):
 
     input_data = {
-        "Gender": Gender,
-        "Age": Age,
-        "Sleep_Hours": Sleep_Hours,
-        "Study_Hours": Study_Hours,
-        "Social_Media_Usage": Social_Media_Usage
-    }
+    "Age": Age
+    "Gender": Gender
+    "Mental_Health_Score": Mental_Health_Score,
+    "Sleep_Hours_Per_Night": Sleep_Hours_Per_Night,
+    "Country": Country,
+    "Relationship_Status": Relationship_Status,
+    "Affects_Academic_Performance": Affects_Academic_Performance,
+    "Academic_Level": Academic_Level,
+    "Conflicts_Over_Social_Media": Conflicts_Over_Social_Media,
+    "Avg_Daily_Usage_Hours": Avg_Daily_Usage_Hours,
+    "Most_Used_Platform": Most_Used_Platform
+}
 
-    input_df = pd.DataFrame([input_data])
+input_df = pd.DataFrame([input_data])
+
 
     # Prediction
     prediction = model.predict(input_df)[0]
