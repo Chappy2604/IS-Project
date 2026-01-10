@@ -70,18 +70,18 @@ Conflicts_Over_Social_Media = st.selectbox(
 # ------------------------------
 if st.button("🔍 Predict Addiction Score"):
 
-    input_data = {
+input_data = {
     "Age": Age,
     "Gender": Gender,
-    "Mental_Health_Score": Mental_Health_Score,
-    "Sleep_Hours_Per_Night": Sleep_Hours_Per_Night,
-    "Country": Country,
-    "Relationship_Status": Relationship_Status,
-    "Affects_Academic_Performance": Affects_Academic_Performance,
     "Academic_Level": Academic_Level,
-    "Conflicts_Over_Social_Media": Conflicts_Over_Social_Media,
+    "Country": Country,
     "Avg_Daily_Usage_Hours": Avg_Daily_Usage_Hours,
-    "Most_Used_Platform": Most_Used_Platform
+    "Most_Used_Platform": Most_Used_Platform,
+    "Affects_Academic_Performance": Affects_Academic_Performance,
+    "Sleep_Hours_Per_Night": Sleep_Hours_Per_Night,
+    "Mental_Health_Score": Mental_Health_Score,
+    "Relationship_Status": Relationship_Status,
+    "Conflicts_Over_Social_Media": Conflicts_Over_Social_Media
 }
 
 input_df = pd.DataFrame([input_data])
