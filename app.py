@@ -56,8 +56,8 @@ Conflicts_Over_Social_Media = st.selectbox(
 if st.button("🔍 Predict Addiction Score"):
 
     input_data = {
-    "Age": Age
-    "Gender": Gender
+    "Age": Age,
+    "Gender": Gender,
     "Mental_Health_Score": Mental_Health_Score,
     "Sleep_Hours_Per_Night": Sleep_Hours_Per_Night,
     "Country": Country,
@@ -72,44 +72,39 @@ if st.button("🔍 Predict Addiction Score"):
 input_df = pd.DataFrame([input_data])
 
 
-    # Prediction
-    prediction = model.predict(input_df)[0]
+# Prediction
+prediction = model.predict(input_df)[0]
 
     # Probability (works if model supports predict_proba)
-    if hasattr(model, "predict_proba"):
+if hasattr(model, "predict_proba"):
         probabilities = model.predict_proba(input_df)[0]
         confidence = np.max(probabilities)
-    else:
+else:
         confidence = None
 
     # ------------------------------
     # Risk Level Logic (EDIT if needed)
     # ------------------------------
-    if prediction <= 3:
+if prediction <= 3:
         risk = "Low"
         color = "green"
-    elif prediction <= 6:
+elif prediction <= 6:
         risk = "Medium"
         color = "orange"
-    else:
+else:
         risk = "High"
         color = "red"
 
     # ------------------------------
     # Display Results
     # ------------------------------
-    st.success(f"🎯 Predicted Addiction Score: **{prediction}**")
+st.success(f"🎯 Predicted Addiction Score: **{prediction}**")
 
-    if confidence is not None:
+if confidence is not None:
         st.write(f"📈 Prediction Confidence: **{confidence * 100:.2f}%**")
         st.progress(int(confidence * 100))
 
-    st.markdown(
+st.markdown(
         f"### 🚦 Risk Level: <span style='color:{color}'>{risk}</span>",
         unsafe_allow_html=True
     )
-
-# ------------------------------
-# Footer
-# ------------------------------
-st.caption("Machine Learning Model • OneHotEncoder • Streamlit")
