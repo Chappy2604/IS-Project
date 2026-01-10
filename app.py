@@ -69,8 +69,7 @@ Conflicts_Over_Social_Media = st.selectbox(
 # Predict Button
 # ------------------------------
 if st.button("🔍 Predict Addiction Score"):
-
-input_data = {
+    input_data = {
     "Age": Age,
     "Gender": Gender,
     "Academic_Level": Academic_Level,
