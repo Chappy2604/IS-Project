@@ -33,19 +33,34 @@ st.divider()
 Age = st.number_input("Age", min_value=10, max_value=100, value=21)
 Gender = st.selectbox("Gender", ["Male", "Female"])
 Academic_Level = st.selectbox(
-    "Academic Level", ["Diploma", "Degree", "Master", "PhD"]
+    "Academic Level", ["Undergraduate", "Graduate", "High School"]
 )
-Country = st.selectbox("Country", ["Malaysia", "Other"])
+Country = st.selectbox("Country", ["Afghanistan", "Albania", "Andorra", "Argentina", "Armenia", "Australia", "Austria", 
+    "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Bhutan", 
+    "Bolivia", "Bosnia", "Brazil", "Bulgaria", "Canada", "Chile", "China", "Colombia", 
+    "Costa Rica", "Croatia", "Cyprus", "Czech Rep", "Denmark", "Ecuador", "Egypt", 
+    "Estonia", "Finland", "France", "Georgia", "Germany", "Ghana", "Greece", 
+    "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iraq", "Ireland", 
+    "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kosovo", 
+    "Kuwait", "Kyrgyzstan", "Latvia", "Lebanon", "Liechtenstein", "Lithuania", 
+    "Luxembourg", "Malaysia", "Maldives", "Malta", "Mexico", "Moldova", "Monaco", 
+    "Montenegro", "Morocco", "Nepal", "Netherlands", "New Zealand", "Nigeria", 
+    "North Macedonia", "Norway", "Oman", "Pakistan", "Panama", "Paraguay", "Peru", 
+    "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "San Marino", 
+    "Serbia", "Singapore", "Slovakia", "Slovenia", "South Africa", "South Korea", 
+    "Spain", "Sri Lanka", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", 
+    "Thailand", "Trinidad", "Turkey", "UAE", "UK", "Ukraine", "Uruguay", "USA", 
+    "Uzbekistan", "Vatican City", "Venezuela", "Vietnam", "Yemen"])
 Avg_Daily_Usage_Hours = st.slider("Average Daily Usage Hours", 0, 24, 5)
 Most_Used_Platform = st.selectbox(
-    "Most Used Platform", ["Instagram", "TikTok", "Facebook", "Twitter"]
+    "Most Used Platform", ["LinkedIn", "TikTok", "Instagram", "Facebook", "Snapchat", "WhatsApp", "WeChat", "Twitter", "YouTube", "LINE", "VKontakte", "KakaoTalk"]
 )
 Affects_Academic_Performance = st.selectbox(
     "Affects Academic Performance", ["Yes", "No"]
 )
 Sleep_Hours_Per_Night = st.slider("Sleep Hours Per Night", 0, 12, 6)
 Mental_Health_Score = st.slider("Mental Health Score", 0, 10, 5)
-Relationship_Status = st.selectbox("Relationship Status", ["Single", "In a Relationship"])
+Relationship_Status = st.selectbox("Relationship Status", ["Single", "In a Relationship", "Complicated"])
 Conflicts_Over_Social_Media = st.selectbox(
     "Conflicts Over Social Media", ["Yes", "No"]
 )
