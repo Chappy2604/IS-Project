@@ -65,11 +65,7 @@ Conflicts_Over_Social_Media = st.selectbox(
     "Conflicts Over Social Media", ["Yes", "No"]
 )
 
-# ------------------------------
-# Predict Button
-# ------------------------------
-if st.button("🔍 Predict Addiction Score"):
-    input_data = {
+input_data = {
     "Age": Age,
     "Gender": Gender,
     "Academic_Level": Academic_Level,
@@ -85,6 +81,10 @@ if st.button("🔍 Predict Addiction Score"):
 
 input_df = pd.DataFrame([input_data])
 
+# ------------------------------
+# Predict Button
+# ------------------------------
+if st.button("🔍 Predict Addiction Score"):
 
 # Prediction
 prediction = model.predict(input_df)[0]
