@@ -28,7 +28,7 @@ st.markdown("Predict student addiction score, probability, and risk level.")
 st.divider()
 
 # ------------------------------
-# Input Fields (MATCH TRAINING COLUMNS)
+# Input Fields 
 # ------------------------------
 Age = st.number_input("Age", min_value=10, max_value=100, value=21)
 Gender = st.selectbox("Gender", ["Male", "Female"])
@@ -96,7 +96,7 @@ if st.button("🔍 Predict Addiction Score"):
         confidence = None
 
     # ------------------------------
-    # Risk Level Logic (EDIT if needed)
+    # Risk Level Logic
     # ------------------------------
     if prediction <= 3:
             risk = "Low"
