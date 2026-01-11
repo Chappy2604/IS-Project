@@ -86,8 +86,8 @@ input_df = pd.DataFrame([input_data])
 # ------------------------------
 if st.button("🔍 Predict Addiction Score"):
 
-# Prediction
-prediction = model.predict(input_df)[0]
+    # Prediction
+    prediction = model.predict(input_df)[0]
 
     # Probability (works if model supports predict_proba)
 if hasattr(model, "predict_proba"):
