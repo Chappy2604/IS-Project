@@ -61,9 +61,8 @@ Affects_Academic_Performance = st.selectbox(
 Sleep_Hours_Per_Night = st.slider("Sleep Hours Per Night", 0, 12, 6)
 Mental_Health_Score = st.slider("Mental Health Score", 0, 10, 5)
 Relationship_Status = st.selectbox("Relationship Status", ["Single", "In a Relationship", "Complicated"])
-Conflicts_Over_Social_Media = st.selectbox(
-    "Conflicts Over Social Media", ["Yes", "No"]
-)
+Conflicts_Over_Social_Media = st.slider(
+    "Conflicts Over Social Media", 0, 10, 5)
 
 input_data = {
     "Age": Age,
