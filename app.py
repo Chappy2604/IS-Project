@@ -90,35 +90,35 @@ if st.button("🔍 Predict Addiction Score"):
     prediction = model.predict(input_df)[0]
 
     # Probability (works if model supports predict_proba)
-if hasattr(model, "predict_proba"):
-    probabilities = model.predict_proba(input_df)[0]
-    confidence = np.max(probabilities)
-else:
-    confidence = None
+    if hasattr(model, "predict_proba"):
+        probabilities = model.predict_proba(input_df)[0]
+        confidence = np.max(probabilities)
+    else:
+        confidence = None
 
     # ------------------------------
     # Risk Level Logic (EDIT if needed)
     # ------------------------------
-if prediction <= 3:
-        risk = "Low"
-        color = "green"
-elif prediction <= 6:
-        risk = "Medium"
-        color = "orange"
-else:
-        risk = "High"
-        color = "red"
+    if prediction <= 3:
+            risk = "Low"
+            color = "green"
+    elif prediction <= 6:
+            risk = "Medium"
+            color = "orange"
+    else:
+            risk = "High"
+            color = "red"
 
     # ------------------------------
     # Display Results
     # ------------------------------
-st.success(f"🎯 Predicted Addiction Score: **{prediction}**")
-
-if confidence is not None:
-        st.write(f"📈 Prediction Confidence: **{confidence * 100:.2f}%**")
-        st.progress(int(confidence * 100))
-
-st.markdown(
-        f"### 🚦 Risk Level: <span style='color:{color}'>{risk}</span>",
-        unsafe_allow_html=True
-    )
+    st.success(f"🎯 Predicted Addiction Score: **{prediction}**")
+    
+    if confidence is not None:
+            st.write(f"📈 Prediction Confidence: **{confidence * 100:.2f}%**")
+            st.progress(int(confidence * 100))
+    
+    st.markdown(
+            f"### 🚦 Risk Level: <span style='color:{color}'>{risk}</span>",
+            unsafe_allow_html=True
+        )
