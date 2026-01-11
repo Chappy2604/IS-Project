@@ -91,10 +91,10 @@ if st.button("🔍 Predict Addiction Score"):
 
     # Probability (works if model supports predict_proba)
 if hasattr(model, "predict_proba"):
-        probabilities = model.predict_proba(input_df)[0]
-        confidence = np.max(probabilities)
+    probabilities = model.predict_proba(input_df)[0]
+    confidence = np.max(probabilities)
 else:
-        confidence = None
+    confidence = None
 
     # ------------------------------
     # Risk Level Logic (EDIT if needed)
